@@ -1,0 +1,52 @@
+#!/bin/bash
+
+cat >> /home/oracle/.bash_profile <<EOF
+ORACLE_BASE=/u01/app/oracle
+export ORACLE_BASE
+
+ORACLE_SID=ORCL
+export ORACLE_SID
+
+ORACLE_HOME=$ORACLE_BASE/product/12.1.0/dbhome_1
+export ORACLE_HOME
+
+PATH=$ORACLE_HOME/bin:$PATH
+export PATH
+EOF
+
+mount -t tmpfs shmfs -o size=4g /dev/shm
+
+cd $ORACLE_HOME/perl/bin
+ln -s /usr/bin/perl perl
+
+date
+echo "Relinking DB..."
+su -s /bin/bash oracle -c "$ORACLE_HOME/bin/relink all"
+echo ""
+
+date
+echo "Creating database..."
+su -s /bin/bash oracle -c "sqlplus /nolog @?/config/scripts/createdb.sql"
+echo ""
+
+date
+echo "Creating password file..."
+cd $ORACLE_HOME/dbs
+su -s /bin/bash oracle -c "$ORACLE_HOME/bin/orapwd FILE=orapw$ORACLE_SID password=oracle"
+echo ""
+
+#date
+#echo "Running catcdb.sql..."
+#cd $ORACLE_HOME/rdbms/admin
+#cp catcdb.sql catcdb-e.sql
+#echo "exit" >> catcdb-e.sql
+#su -s /bin/bash oracle -c "sqlplus / as sysdba @?/rdbms/admin/catcdb-e.sql > /tmp/catcdb.log"
+#rm catcdb-e.sql
+#echo ""
+
+#echo "Finalizing install and shutting down the database..."
+#su -s /bin/bash oracle -c "sqlplus / as sysdba @?/config/scripts/conf_finish.sql"
+#echo ""
+
+date
+echo "Create is done"

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mount -t tmpfs shmfs -o size=4g /dev/shm
+
+echo "Configuring PDB..."
+su -s /bin/bash oracle -c "sqlplus sys as sysdba @?/config/scripts/create_pdb.sql"
+echo ""
+
+date
+echo "Create PDB is done; commit the container now"
