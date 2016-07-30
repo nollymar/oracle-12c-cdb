@@ -6,20 +6,23 @@ An extension of the [Docker](https://www.docker.com/) [image](https://registry.h
 
 2. Create a CDB:
 ```
-`$ docker build -t oracle-12c:step2b create_cdb
+$ docker build -t oracle-12c:step2b create_cdb
 $ docker run --privileged -ti --name create_cdb oracle-12c:step2b /bin/bash
 \# /tmp/create
 \# su - oracle
-sqlplus / as sysdba`
+sqlplus / as sysdba
 ```
 
-Execute catcdb.sql and set a password for **SYS** and **SYSTEM** users (I used *oracle* as password for both). Additionally, you have to provide a temporary tablespace. 
+Execute catcdb.sql and set a password for **SYS** and **SYSTEM** users (I used *oracle* as password for both). Additionally, you have to provide a temporary tablespace.
 
 ```
-`@?/rdbms/admin/catcdb.sql;` (takes about 1 hour):
+@?/rdbms/admin/catcdb.sql; 
+```(takes about 1 hour):
+
+*Output:*
+
 ```
-```
-`Session altered.
+Session altered.
 
 Enter new password for SYS:
 Enter new password for SYSTEM:
@@ -279,7 +282,7 @@ Session altered.
 Session altered.
 
 
-Session altered.`
+Session altered.
 
 ```
 
@@ -287,16 +290,22 @@ Session altered.`
 Exit SQLPlus and execute step **Create PDB**
 
 ```
-`SQL> exit;
-`# /tmp/create_pdb
+SQL> exit;
+\# /tmp/create_pdb
 ```
 
 Execute *conf_finish.sql*
-`# sqlplus / as sysdba`
 
-`@?/config/scripts/conf_finish.sql`
+```
+\# sqlplus / as sysdba
 
-`PL/SQL procedure successfully completed.
+@?/config/scripts/conf_finish.sql
+```
+
+*Output:*
+
+```
+PL/SQL procedure successfully completed.
 
 
 PL/SQL procedure successfully completed.
@@ -305,26 +314,32 @@ Database closed.
 Database dismounted.
 ORACLE instance shut down.
 Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
-With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options`
-
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+```
 
 Exit oracle user's context
-
-`# exit`
+```
+\# exit
+```
 
 Exit docker container
+```
+\# exit
+```
 
 Commit container changes
-
-`$ docker commit create_cdb oracle-12c:create_cdb`
+```
+$ docker commit create_cdb oracle-12c:create_cdb
+```
 
 3) Finish installation:
+```
+$ docker build -t oracle-12c finish
 
-`$ docker build -t oracle-12c finish`
+$ docker run --privileged -dP --name orcl oracle-12c
+```
 
-`$ docker run --privileged -dP --name orcl oracle-12c`
-
-To see the port where oracle is running locally, execute:
+To see the port where oracle is running locally, execute: 
 
 `$ docker port orcl 1521`
 
