@@ -2,10 +2,10 @@
 An extension of the [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/wscherphof/oracle-12c/) created by [wscherphof](https://github.com/wscherphof). This extension installs [Oracle Database 12c Enterprise Edition Release 12.1.0.2.0](http://www.oracle.com/technetwork/database/enterprise-edition/overview/index.html) with a container and a pluggable database running on [Oracle Linux 7](http://www.oracle.com/us/technologies/linux/overview/index.html)
 
 ## How to
-1) Execute [**Step 1**](https://github.com/wscherphof/oracle-12c#step-1).
+1. Execute [**Step 1**](https://github.com/wscherphof/oracle-12c#step-1).
 
-2) Create a CDB:
-a) `$ docker build -t oracle-12c:step2b create_cdb`
+2. Create a CDB:
+* `$ docker build -t oracle-12c:step2b create_cdb`
 b) `$ docker run --privileged -ti --name create_cdb oracle-12c:step2b /bin/bash`
 c) `# /tmp/create`
 d) `# su - oracle`
