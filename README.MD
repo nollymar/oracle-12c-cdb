@@ -5,16 +5,20 @@ An extension of the [Docker](https://www.docker.com/) [image](https://registry.h
 1. Execute [**Step 1**](https://github.com/wscherphof/oracle-12c#step-1).
 
 2. Create a CDB:
-`$ docker build -t oracle-12c:step2b create_cdb`
-`$ docker run --privileged -ti --name create_cdb oracle-12c:step2b /bin/bash`
-`# /tmp/create`
-`# su - oracle`
-`sqlplus / as sysdba`
+```
+`$ docker build -t oracle-12c:step2b create_cdb
+$ docker run --privileged -ti --name create_cdb oracle-12c:step2b /bin/bash
+\# /tmp/create
+\# su - oracle
+sqlplus / as sysdba`
+```
 
 Execute catcdb.sql and set a password for **SYS** and **SYSTEM** users (I used *oracle* as password for both). Additionally, you have to provide a temporary tablespace. 
+
+```
 `@?/rdbms/admin/catcdb.sql;` (takes about 1 hour):
-
-
+```
+```
 `Session altered.
 
 Enter new password for SYS:
@@ -277,12 +281,15 @@ Session altered.
 
 Session altered.`
 
+```
+
 
 Exit SQLPlus and execute step **Create PDB**
 
-`SQL> exit;`
-`# /tmp/create_pdb`
-
+```
+`SQL> exit;
+`# /tmp/create_pdb
+```
 
 Execute *conf_finish.sql*
 `# sqlplus / as sysdba`
