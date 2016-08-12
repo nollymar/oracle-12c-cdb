@@ -1,3 +1,8 @@
+<!--
+  Title: Oracle 12C Database with containers (CDB) and pluggable databases (PDB)
+  Description: An extension of the Docker image created by wscherphof. This extension installs Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 with a container and a pluggable database running on Oracle Linux 7  
+  Author: nollymar
+  -->
 # Oracle 12C Database with containers (CDB) and pluggable databases (PDB)
 An extension of the [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/wscherphof/oracle-12c/) created by [wscherphof](https://github.com/wscherphof). This extension installs [Oracle Database 12c Enterprise Edition Release 12.1.0.2.0](http://www.oracle.com/technetwork/database/enterprise-edition/overview/index.html) with a container and a pluggable database running on [Oracle Linux 7](http://www.oracle.com/us/technologies/linux/overview/index.html)
 
